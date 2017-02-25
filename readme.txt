@@ -15,18 +15,14 @@ The application is tested throughout using JUnit and Mockito where appropriate. 
 
 Running Application -
 
-To run the application locally you first have to compile it and this can be done in the command line. First you have to navigate to the root of the project and then run the following command.
+To run the application from the command line you have to navigate to the root of the project and run the following command.
 
-mvn clean package
-
-Then run the application with.
-
-Java –jar target/hotelBookingService-1.0-SNAPSHOT.jar
+	mvn spring-boot:run
 
 Alternatively the app can be accessed on AWS through the following URLs.
 
 	http://lochside-hotel.us-west-2.elasticbeanstalk.com/roomBookings?room=[room id]
-    http://lochside-hotel.us-west-2.elasticbeanstalk.com/customerBookings?customer=[customer id]
+    	http://lochside-hotel.us-west-2.elasticbeanstalk.com/customerBookings?customer=[customer id]
 	http://lochside-hotel.us-west-2.elasticbeanstalk.com/availability?room=[room id]&from=[‘yyyy-mm-dd’]&to=[‘yyyy-mm-dd’]
 	http://lochside-hotel.us-west-2.elasticbeanstalk.com//createBooking?room=[room id]&customer=[customer id]&fromDate=[‘yyyy-mm-dd’]&toDate=[‘yyyy-mm-dd’]
 
