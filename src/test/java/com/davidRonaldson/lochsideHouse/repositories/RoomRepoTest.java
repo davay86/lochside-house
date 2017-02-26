@@ -1,7 +1,6 @@
 package com.davidRonaldson.lochsideHouse.repositories;
 
 import com.davidRonaldson.lochsideHouse.config.RepositoryConfig;
-import com.davidRonaldson.lochsideHouse.domain.Booking;
 import com.davidRonaldson.lochsideHouse.domain.Room;
 import org.junit.After;
 import org.junit.Assert;
@@ -13,8 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {RepositoryConfig.class})

@@ -1,9 +1,6 @@
 package com.davidRonaldson.lochsideHouse.domain;
 
-import com.davidRonaldson.lochsideHouse.domain.Booking;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "CUSTOMERS")

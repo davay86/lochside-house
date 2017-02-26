@@ -6,8 +6,6 @@ import org.junit.Test;
 
 import java.sql.Date;
 
-import static org.junit.Assert.*;
-
 public class BookingTest {
 
     Booking booking;

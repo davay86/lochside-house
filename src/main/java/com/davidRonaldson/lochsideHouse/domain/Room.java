@@ -1,7 +1,6 @@
 package com.davidRonaldson.lochsideHouse.domain;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name="ROOMS")

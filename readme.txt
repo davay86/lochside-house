@@ -24,7 +24,12 @@ Alternatively the app can be accessed on AWS through the following URLs.
 	http://lochside-hotel.us-west-2.elasticbeanstalk.com/roomBookings?room=[room id]
     	http://lochside-hotel.us-west-2.elasticbeanstalk.com/customerBookings?customer=[customer id]
 	http://lochside-hotel.us-west-2.elasticbeanstalk.com/availability?room=[room id]&from=[‘yyyy-mm-dd’]&to=[‘yyyy-mm-dd’]
-	http://lochside-hotel.us-west-2.elasticbeanstalk.com//createBooking?room=[room id]&customer=[customer id]&fromDate=[‘yyyy-mm-dd’]&toDate=[‘yyyy-mm-dd’]
+	
+	NB The /createBooking cannot be accessed through a url but can be tested through Postman passing in the following params
+		customer : [cust_id]
+		room : [room_id]
+		fromDate : ['yyyy-mm-dd']
+		toDate : ['yyyy-mm-dd']
 
 Pre-seeded Data -
 

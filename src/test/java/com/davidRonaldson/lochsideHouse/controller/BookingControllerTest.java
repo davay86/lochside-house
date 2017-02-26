@@ -1,6 +1,5 @@
 package com.davidRonaldson.lochsideHouse.controller;
 
-import com.davidRonaldson.lochsideHouse.config.RepositoryConfig;
 import com.davidRonaldson.lochsideHouse.domain.Booking;
 import com.davidRonaldson.lochsideHouse.domain.Customer;
 import com.davidRonaldson.lochsideHouse.domain.Room;
@@ -15,14 +14,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
