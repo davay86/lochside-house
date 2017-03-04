@@ -40,7 +40,7 @@ public class BookingIntegrationTest {
     public void getRoomBookings(){
         String expectedResponse = "[{\"id\":3,\"customer\":{\"id\":102,\"name\":\"Ashley\"},\"room\":{\"id\":1001,\"type\":\"Single\",\"price\":100.0},\"fromDate\":\"2017-10-10\",\"toDate\":\"2017-10-19\"}]";
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/roomBookings")
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/lochsideHouse/roomBookings")
                 .queryParam("room", "1001");
 
         String response = testRestTemplate.getForObject(
@@ -53,7 +53,7 @@ public class BookingIntegrationTest {
     public void getCustomerBookings(){
         String expectedResponse = "[{\"id\":1,\"customer\":{\"id\":101,\"name\":\"David\"},\"room\":{\"id\":1002,\"type\":\"Single\",\"price\":100.0},\"fromDate\":\"2017-12-17\",\"toDate\":\"2017-12-19\"},{\"id\":4,\"customer\":{\"id\":101,\"name\":\"David\"},\"room\":{\"id\":1005,\"type\":\"Double\",\"price\":200.0},\"fromDate\":\"2017-09-12\",\"toDate\":\"2017-09-04\"}]";
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/customerBookings")
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/lochsideHouse/customerBookings")
                 .queryParam("customer", "101");
 
         String response = testRestTemplate.getForObject(
@@ -66,7 +66,7 @@ public class BookingIntegrationTest {
     public void getAvailability_roomAvailable(){
         String expectedResponse = "Room available";
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/availability")
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/lochsideHouse/availability")
                 .queryParam("room", "1001")
                 .queryParam("from","2019-09-10")
                 .queryParam("to","2019-09-03");
@@ -81,7 +81,7 @@ public class BookingIntegrationTest {
     public void getAvailability_roomUnavailable(){
         String expectedResponse = "Date unavailable";
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/availability")
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/lochsideHouse/availability")
                 .queryParam("room", "1001")
                 .queryParam("from","2017-10-11")
                 .queryParam("to","2017-10-20");
@@ -97,7 +97,7 @@ public class BookingIntegrationTest {
         int noOfBookingsBeforeCreation = bookingRepo.findAll().size();
 
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/createBooking")
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/lochsideHouse/createBooking")
                 .queryParam("room", "1003")
                 .queryParam("customer", "101")
                 .queryParam("fromDate", "2017-05-27")
