@@ -57,6 +57,21 @@ public class BookingIntegrationTest {
     }
 
     @Test
+    public void getRoomBookings_notAuthenticated() {
+
+        String expectedResponse = "[{\"id\":3,\"customer\":{\"id\":102,\"name\":\"Ashley\"},\"room\":{\"id\":1001,\"type\":\"Single\",\"price\":100.0},\"fromDate\":\"2017-10-10\",\"toDate\":\"2017-10-19\"}]";
+
+        HttpEntity<String> request = setupNonAuthenticatedUser();
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/lochsideHouse/roomBookings")
+                .queryParam("room", "1001");
+
+        ResponseEntity<String> response = testRestTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, request, String.class);
+
+        Assert.assertEquals(403, response.getStatusCodeValue());
+    }
+
+    @Test
     public void getCustomerBookings(){
         String expectedResponse = "[{\"id\":1,\"customer\":{\"id\":101,\"name\":\"David\"},\"room\":{\"id\":1002,\"type\":\"Single\",\"price\":100.0},\"fromDate\":\"2017-12-17\",\"toDate\":\"2017-12-19\"},{\"id\":4,\"customer\":{\"id\":101,\"name\":\"David\"},\"room\":{\"id\":1005,\"type\":\"Double\",\"price\":200.0},\"fromDate\":\"2017-09-12\",\"toDate\":\"2017-09-04\"}]";
 
@@ -68,6 +83,20 @@ public class BookingIntegrationTest {
         ResponseEntity<String> response = testRestTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, request, String.class);
 
         Assert.assertEquals(expectedResponse, response.getBody());
+    }
+
+    @Test
+    public void getCustomerBookings_notAuthenticated() {
+        String expectedResponse = "[{\"id\":1,\"customer\":{\"id\":101,\"name\":\"David\"},\"room\":{\"id\":1002,\"type\":\"Single\",\"price\":100.0},\"fromDate\":\"2017-12-17\",\"toDate\":\"2017-12-19\"},{\"id\":4,\"customer\":{\"id\":101,\"name\":\"David\"},\"room\":{\"id\":1005,\"type\":\"Double\",\"price\":200.0},\"fromDate\":\"2017-09-12\",\"toDate\":\"2017-09-04\"}]";
+
+        HttpEntity<String> request = setupNonAuthenticatedUser();
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/lochsideHouse/customerBookings")
+                .queryParam("customer", "101");
+
+        ResponseEntity<String> response = testRestTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, request, String.class);
+
+        Assert.assertEquals(403, response.getStatusCodeValue());
     }
 
     @Test
@@ -103,6 +132,22 @@ public class BookingIntegrationTest {
     }
 
     @Test
+    public void getAvailability_notAuthenticated() {
+        String expectedResponse = "Date unavailable";
+
+        HttpEntity<String> request = setupNonAuthenticatedUser();
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/lochsideHouse/availability")
+                .queryParam("room", "1001")
+                .queryParam("from", "2017-10-11")
+                .queryParam("to", "2017-10-20");
+
+        ResponseEntity<String> response = testRestTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, request, String.class);
+
+        Assert.assertEquals(403, response.getStatusCodeValue());
+    }
+
+    @Test
     public void createBooking(){
         int noOfBookingsBeforeCreation = bookingRepo.findAll().size();
 
@@ -129,8 +174,39 @@ public class BookingIntegrationTest {
         bookingRepo.delete(bookings.get(0));
     }
 
+    @Test
+    public void createBooking_notAuthenticated() {
+        int noOfBookingsBeforeCreation = bookingRepo.findAll().size();
+
+        HttpEntity<String> request = setupNonAuthenticatedUser();
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/lochsideHouse/createBooking")
+                .queryParam("room", "1003")
+                .queryParam("customer", "101")
+                .queryParam("fromDate", "2017-05-27")
+                .queryParam("toDate", "2017-06-06");
+
+
+        testRestTemplate.exchange(builder.build().encode().toUri(), HttpMethod.POST, request, String.class);
+
+        List<Booking> bookings = bookingRepo.findByRoom(roomRepo.findOne(1003L));
+
+        Assert.assertEquals(noOfBookingsBeforeCreation, bookingRepo.findAll().size());
+        Assert.assertEquals(0, bookings.size());
+    }
+
     private HttpEntity<String> setupAuthenticatedUser() {
         String credentials = "david:password";
+        String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Basic " + encodedCredentials);
+
+        return new HttpEntity<String>(headers);
+    }
+
+    private HttpEntity<String> setupNonAuthenticatedUser() {
+        String credentials = "ashley:password";
         String encodedCredentials = new String(Base64.encodeBase64(credentials.getBytes()));
 
         HttpHeaders headers = new HttpHeaders();
