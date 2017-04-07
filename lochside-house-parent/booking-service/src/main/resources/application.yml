@@ -1,0 +1,3 @@
+server:
+  contextPath: /lochsideHouseBooking
+  port: 4444

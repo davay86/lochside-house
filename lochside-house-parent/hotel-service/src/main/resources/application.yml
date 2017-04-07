@@ -1,0 +1,3 @@
+server:
+  context-path: /lochsideHouseHotelService
+  port: 5556

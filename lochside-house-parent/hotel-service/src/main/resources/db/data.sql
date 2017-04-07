@@ -1,0 +1,3 @@
+INSERT INTO HOTELS VALUES (101,'First Hotel','12 Address, Address');
+
+INSERT INTO ROOMS VALUES (11,101,120,'Single');
